@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import IntroAbout from '../components/IntroAbout.astro';
+import DesignPhilosophy from '../components/DesignPhilosophy.astro';
+import Footer from '../components/Footer.astro';
+import SketchBackground from '../components/SketchBackground.astro';
+---
+
+<Layout 
+  title="Our Studio | Luxury Interior Architecture | KEAGMAS INTERIORS"
+  description="Learn about KEAGMAS INTERIORS, a premier luxury interior design and architecture studio based in Malabar Hill, Mumbai, founded by Abdul Sattar Jetha."
+>
+  <Navigation />
+  
+  <main class="page-padding">
+    <div style="position: relative; overflow: hidden; margin: -120px 0 0 0; padding: 120px 0 0 0;">
+      <SketchBackground imageSrc="/keagmas1/sketches/about_sketch.jpg" />
+      <div class="container section-header reveal-up" style="position: relative; z-index: 1;">
+      <h1 class="font-serif italic text-accent" style="font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; margin-bottom: var(--space-md);">The Studio</h1>
+      <p style="font-size: 1.125rem; max-width: 600px; opacity: 0.8;">Founded by Abdul Sattar Jetha on the principles of spatial purity and material honesty, our Mumbai-based studio creates environments that elevate the everyday luxury experience.</p>
+    </div>
+    </div>
+
+    <IntroAbout />
+    <DesignPhilosophy />
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-padding {
+    padding-top: 120px;
+  }
+  
+  .section-header {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--c-border);
+  }
+</style>

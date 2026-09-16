@@ -1,0 +1,147 @@
+---
+import { getCollection } from 'astro:content';
+const allProjects = await getCollection('projects');
+const selectedProjects = allProjects.slice(0, 4); // Take first 4
+---
+<section id="projects" class="projects">
+  <div class="container">
+    <div class="section-header reveal-up">
+      <h2 class="text-uppercase font-sans">Selected Portfolios</h2>
+      <a href="/projects" class="view-all interactive">
+        View All Portfolios
+      </a>
+    </div>
+
+    <div class="projects-list">
+      {selectedProjects.map((project, index) => (
+        <article class={`project-item ${index % 2 !== 0 ? 'reverse' : ''}`}>
+          <div class="project-info reveal-up delay-1">
+            <span class="project-number font-serif italic">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 class="project-title text-uppercase">{project.data.title}</h3>
+              <p class="project-meta">Portfolio Collection</p>
+            </div>
+          </div>
+          <a href={`/projects/${project.id}`} class="project-image-link interactive">
+            <div class="reveal-image-wrapper project-image-wrapper hover-scale">
+              <img src={project.data.heroImage} alt={project.data.title} loading="lazy" class="reveal-image parallax-img" />
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--c-border);
+    padding-bottom: var(--space-md);
+  }
+
+  .section-header h2 {
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+  }
+
+  .view-all {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+  }
+
+  .view-all::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--c-text);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+  }
+
+  .view-all:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .project-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .project-item {
+      grid-template-columns: 4fr 8fr;
+      gap: var(--space-xl);
+    }
+    
+    .project-item.reverse {
+      grid-template-columns: 8fr 4fr;
+    }
+    
+    .project-item.reverse .project-info {
+      order: 2;
+      padding-left: var(--space-xl);
+    }
+  }
+
+  .project-info {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .project-number {
+    font-size: 1.5rem;
+    color: var(--c-accent);
+  }
+
+  .project-title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    margin-bottom: var(--space-xs);
+    line-height: 1.1;
+  }
+
+  .project-meta {
+    font-size: 0.875rem;
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+  }
+
+  .project-image-link {
+    display: block;
+    width: 100%;
+  }
+
+  .project-image-wrapper {
+    width: 100%;
+    aspect-ratio: 4/3;
+  }
+
+  @media (min-width: 1024px) {
+    .project-image-wrapper {
+      aspect-ratio: 16/10;
+    }
+  }
+</style>

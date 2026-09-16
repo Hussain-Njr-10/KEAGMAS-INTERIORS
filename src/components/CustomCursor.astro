@@ -1,0 +1,108 @@
+---
+---
+<div class="custom-cursor" id="custom-cursor"></div>
+<div class="custom-cursor-follower" id="custom-cursor-follower"></div>
+
+<style>
+  .custom-cursor, .custom-cursor-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .custom-cursor {
+    width: 6px;
+    height: 6px;
+    background-color: var(--c-text);
+    transition: transform 0.2s cubic-bezier(0.7, 0, 0.3, 1), background-color 0.2s ease;
+  }
+
+  .custom-cursor-follower {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--c-text);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    mix-blend-mode: difference;
+  }
+
+  /* Hover States */
+  :global(html.has-hover .custom-cursor) {
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  :global(html.has-hover .custom-cursor-follower) {
+    width: 80px;
+    height: 80px;
+    background-color: var(--c-white);
+    border-color: transparent;
+    mix-blend-mode: difference;
+  }
+  
+  @media (max-width: 768px) {
+    .custom-cursor, .custom-cursor-follower {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  let cursorX = 0;
+  let cursorY = 0;
+  let followerX = 0;
+  let followerY = 0;
+  let isHovering = false;
+  let rafId;
+
+  document.addEventListener('astro:page-load', () => {
+    const cursor = document.getElementById('custom-cursor');
+    const follower = document.getElementById('custom-cursor-follower');
+    
+    if (window.matchMedia('(pointer: fine)').matches) {
+      
+      const onMouseMove = (e) => {
+        cursorX = e.clientX;
+        cursorY = e.clientY;
+        
+        if (cursor) {
+          cursor.style.left = cursorX + 'px';
+          cursor.style.top = cursorY + 'px';
+        }
+      };
+
+      document.addEventListener('mousemove', onMouseMove);
+      
+      const render = () => {
+        followerX += (cursorX - followerX) * 0.15;
+        followerY += (cursorY - followerY) * 0.15;
+        
+        if (follower) {
+          follower.style.left = followerX + 'px';
+          follower.style.top = followerY + 'px';
+        }
+        
+        rafId = requestAnimationFrame(render);
+      };
+      
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(render);
+      
+      const attachHoverListeners = () => {
+        const interactives = document.querySelectorAll('a, button, .interactive');
+        interactives.forEach(el => {
+          el.addEventListener('mouseenter', () => {
+            document.documentElement.classList.add('has-hover');
+          });
+          el.addEventListener('mouseleave', () => {
+            document.documentElement.classList.remove('has-hover');
+          });
+        });
+      };
+      
+      attachHoverListeners();
+    }
+  });
+</script>

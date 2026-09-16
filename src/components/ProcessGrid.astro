@@ -1,0 +1,112 @@
+---
+// ProcessGrid.astro
+---
+<section class="process container">
+  <div class="section-header reveal-up">
+    <h2 class="text-uppercase font-sans">The Process</h2>
+  </div>
+
+  <div class="process-grid">
+    <div class="process-step reveal-up delay-1">
+      <div class="step-number font-serif italic text-accent">01</div>
+      <h3 class="text-uppercase">Discover</h3>
+      <p>Understanding your vision, context, and the fundamental requirements of the space.</p>
+    </div>
+    
+    <div class="process-step reveal-up delay-2">
+      <div class="step-number font-serif italic text-accent">02</div>
+      <h3 class="text-uppercase">Concept</h3>
+      <p>Translating requirements into a cohesive design narrative, materiality, and spatial flow.</p>
+    </div>
+    
+    <div class="process-step reveal-up delay-3">
+      <div class="step-number font-serif italic text-accent">03</div>
+      <h3 class="text-uppercase">Detail</h3>
+      <p>Refining every architectural detail, custom furniture specification, and lighting plan.</p>
+    </div>
+    
+    <div class="process-step reveal-up delay-4">
+      <div class="step-number font-serif italic text-accent">04</div>
+      <h3 class="text-uppercase">Deliver</h3>
+      <p>Executing the turnkey design with precision through our trusted network of master craftsmen and contractors across Mumbai.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process {
+    padding-bottom: var(--space-2xl);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--c-border);
+    padding-bottom: var(--space-md);
+  }
+
+  .section-header h2 {
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 640px) {
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .process-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+  }
+
+  .process-step {
+    padding: var(--space-md);
+    background-color: var(--c-white);
+    border: 1px solid var(--c-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+  }
+
+  /* Overlap borders to create a clean grid on desktop */
+  @media (min-width: 1024px) {
+    .process-step {
+      border-right: none;
+    }
+    .process-step:last-child {
+      border-right: 1px solid var(--c-border);
+    }
+  }
+
+  .process-step:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    z-index: 1; /* bring above others */
+  }
+
+  .step-number {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .process-step h3 {
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+  }
+
+  .process-step p {
+    font-size: 0.875rem;
+    opacity: 0.7;
+  }
+</style>

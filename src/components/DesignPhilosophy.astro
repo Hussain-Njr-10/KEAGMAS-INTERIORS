@@ -1,0 +1,68 @@
+---
+// DesignPhilosophy.astro
+---
+<section class="philosophy container">
+  <div class="structural-bg" aria-hidden="true">02</div>
+  <div class="philosophy-content">
+    <h2 class="text-uppercase font-sans reveal-up">Philosophy</h2>
+    
+    <div class="philosophy-words">
+      <span class="reveal-up delay-1 font-serif italic text-accent">Space.</span>
+      <span class="reveal-up delay-2 font-sans">Material.</span>
+      <span class="reveal-up delay-3 font-serif italic text-accent">Light.</span>
+      <span class="reveal-up delay-4 font-sans">Detail.</span>
+    </div>
+
+    <div class="philosophy-desc reveal-up delay-1">
+      <p>Every element is a conscious decision. We strip away the unnecessary to reveal the essential character of a space. Our bespoke interior architecture prioritizes texture, natural light, and structural purity, creating timeless sanctuaries in the heart of Mumbai and beyond.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .philosophy {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+    text-align: center;
+    position: relative;
+  }
+
+  .structural-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(10rem, 35vw, 40rem);
+    font-family: var(--f-sans);
+    font-weight: 700;
+    line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(28, 27, 26, 0.05);
+    z-index: -1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .philosophy-content h2 {
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-lg);
+  }
+
+  .philosophy-words {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm) var(--space-md);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: var(--space-lg);
+  }
+
+  .philosophy-desc {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    opacity: 0.8;
+  }
+</style>

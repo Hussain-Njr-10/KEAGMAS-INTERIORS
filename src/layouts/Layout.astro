@@ -1,0 +1,157 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+import '../styles/animations.css';
+import CustomCursor from '../components/CustomCursor.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "KEAGMAS INTERIORS | Luxury Interior Designers Mumbai",
+  description = "Award-winning luxury interior architecture and bespoke design studio based in Malabar Hill, Mumbai. We create timeless, curated spaces that elevate the everyday experience."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <ClientRouter />
+  </head>
+  <body>
+    <!-- Architectural background grid -->
+    <div class="grid-lines">
+      <div class="grid-line"></div>
+      <div class="grid-line"></div>
+      <div class="grid-line"></div>
+      <div class="grid-line"></div>
+    </div>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+      <div class="preloader-text">
+        <span>KEAGMAS</span>
+      </div>
+    </div>
+
+    <CustomCursor />
+    
+    <slot />
+
+    <script>
+      import Lenis from 'lenis';
+
+      let lenis: Lenis | null = null;
+      let rafId: number;
+
+      function initLenis() {
+        if (lenis) {
+          lenis.destroy();
+          cancelAnimationFrame(rafId);
+        }
+
+        lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: 'vertical',
+          gestureOrientation: 'vertical',
+          smoothWheel: true,
+          wheelMultiplier: 1,
+          touchMultiplier: 2,
+        });
+
+        lenis.on('scroll', (e: any) => {
+          const parallaxImages = document.querySelectorAll('.parallax-img');
+          parallaxImages.forEach(img => {
+            const parent = img.parentElement;
+            if (parent) {
+              const rect = parent.getBoundingClientRect();
+              if(rect.top < window.innerHeight && rect.bottom > 0) {
+                // Element is in view
+                const y = (rect.top / window.innerHeight - 0.5) * 15; // move slightly based on scroll
+                (img as HTMLElement).style.transform = `translateY(${y}%) scale(1.15)`;
+              }
+            }
+          });
+        });
+
+        function raf(time: number) {
+          lenis?.raf(time);
+          rafId = requestAnimationFrame(raf);
+        }
+        rafId = requestAnimationFrame(raf);
+      }
+
+      function initReveals() {
+        // Preloader exit
+        setTimeout(() => {
+          const preloader = document.getElementById('preloader');
+          if (preloader) {
+            preloader.classList.add('is-hidden');
+          }
+        }, 1500);
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-inview');
+            }
+          });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        // Split text elements
+        const splitTextElements = document.querySelectorAll('.split-text');
+        splitTextElements.forEach(el => {
+          const targetEl = el as HTMLElement;
+          if (targetEl.dataset.splitted) return;
+          
+          // Basic word split that preserves br tags
+          const html = targetEl.innerHTML;
+          // We will just do a simple line split for now to keep it safe with HTML
+          // For true split-text with html tags, it's complex. Let's do a simple wrap of children text nodes.
+          const wrapTextNodes = (node: Node) => {
+            if (node.nodeType === 3) {
+              const text = node.textContent?.trim();
+              if (text) {
+                const words = text.split(/\s+/);
+                const fragment = document.createDocumentFragment();
+                words.forEach(word => {
+                  const span = document.createElement('span');
+                  span.className = 'split-word';
+                  const inner = document.createElement('span');
+                  inner.className = 'split-word-inner';
+                  inner.textContent = word + ' ';
+                  span.appendChild(inner);
+                  fragment.appendChild(span);
+                });
+                node.parentNode?.replaceChild(fragment, node);
+              }
+            } else if (node.nodeType === 1 && (node as HTMLElement).tagName !== 'BR') {
+              Array.from(node.childNodes).forEach(wrapTextNodes);
+            }
+          };
+          
+          Array.from(targetEl.childNodes).forEach(wrapTextNodes);
+          targetEl.dataset.splitted = 'true';
+        });
+
+        const revealElements = document.querySelectorAll('.reveal-up, .reveal-image-wrapper, .split-text');
+        revealElements.forEach((el) => observer.observe(el));
+      }
+
+      // Initialize on first load and subsequent view transitions
+      document.addEventListener("astro:page-load", () => {
+        initLenis();
+        initReveals();
+      });
+    </script>
+  </body>
+</html>

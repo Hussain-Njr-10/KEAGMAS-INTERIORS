@@ -1,0 +1,179 @@
+---
+// ServicesList.astro
+---
+<section class="services container">
+  <div class="services-grid">
+    <div class="services-header reveal-up">
+      <h2 class="text-uppercase font-sans">Expertise</h2>
+    </div>
+    
+    <div class="services-list">
+      <div class="service-item reveal-up delay-1">
+        <div class="service-trigger interactive">
+          <h3 class="font-sans text-uppercase">Interior Architecture</h3>
+          <span class="service-icon">+</span>
+        </div>
+        <div class="service-content">
+          <div class="service-content-inner">
+            <p>From spatial planning to structural modifications, we redefine the flow and function of your spaces, creating harmonious environments that serve as the perfect foundation for luxury living.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="service-item reveal-up delay-2">
+        <div class="service-trigger interactive">
+          <h3 class="font-sans text-uppercase">Residential Interiors</h3>
+          <span class="service-icon">+</span>
+        </div>
+        <div class="service-content">
+          <div class="service-content-inner">
+            <p>Bespoke design solutions tailored to your lifestyle. We curate every detail—from custom furnishings to lighting—transforming houses into highly personalized, timeless sanctuaries.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="service-item reveal-up delay-3">
+        <div class="service-trigger interactive">
+          <h3 class="font-sans text-uppercase">Commercial Spaces</h3>
+          <span class="service-icon">+</span>
+        </div>
+        <div class="service-content">
+          <div class="service-content-inner">
+            <p>Elevating brand experiences through strategic design. We craft immersive, high-end commercial environments that inspire clients and enhance operational flow.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="service-item reveal-up delay-4">
+        <div class="service-trigger interactive">
+          <h3 class="font-sans text-uppercase">Furniture & Styling</h3>
+          <span class="service-icon">+</span>
+        </div>
+        <div class="service-content">
+          <div class="service-content-inner">
+            <p>The final layer of curated elegance. We source rare antiques, commission custom pieces, and meticulously style your space to achieve a magazine-quality finish.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding-bottom: var(--space-2xl);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 1024px) {
+    .services-grid {
+      grid-template-columns: 4fr 8fr;
+    }
+  }
+
+  .services-header h2 {
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    position: sticky;
+    top: 120px;
+  }
+
+  .services-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--c-border);
+  }
+
+  .service-item {
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  .service-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .service-trigger h3 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .service-icon {
+    font-size: 2rem;
+    font-weight: 300;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .service-trigger:hover {
+    color: var(--c-accent);
+  }
+
+  .service-trigger:hover h3 {
+    transform: translateX(10px);
+  }
+
+  /* Active states */
+  .service-item.is-active .service-icon {
+    transform: rotate(45deg); /* Turns + into x */
+  }
+  
+  .service-item.is-active .service-trigger {
+    color: var(--c-accent);
+  }
+
+  /* Accordion animation using grid */
+  .service-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .service-item.is-active .service-content {
+    grid-template-rows: 1fr;
+  }
+
+  .service-content-inner {
+    overflow: hidden;
+  }
+
+  .service-content-inner p {
+    padding-bottom: var(--space-md);
+    font-size: 1.125rem;
+    opacity: 0.8;
+    line-height: 1.6;
+    max-width: 80%;
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const triggers = document.querySelectorAll('.service-trigger');
+    
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const parentItem = trigger.closest('.service-item');
+        
+        // Close others (optional, if you want only one open at a time)
+        document.querySelectorAll('.service-item').forEach(item => {
+          if (item !== parentItem) {
+            item.classList.remove('is-active');
+          }
+        });
+        
+        // Toggle current
+        if (parentItem) {
+          parentItem.classList.toggle('is-active');
+        }
+      });
+    });
+  });
+</script>

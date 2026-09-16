@@ -1,0 +1,48 @@
+---
+// CTASection.astro
+---
+<section id="contact" class="cta container">
+  <div class="cta-inner reveal-up">
+    <h2 class="font-serif italic text-accent">Let's create a space worth living in.</h2>
+    <a href="mailto:keagmas@gmail.com" class="cta-btn interactive text-uppercase font-sans">Start a Project</a>
+  </div>
+</section>
+
+<style>
+  .cta {
+    padding-bottom: var(--space-2xl);
+  }
+
+  .cta-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-lg);
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--c-border);
+  }
+
+  h2 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.1;
+    max-width: 1000px;
+    color: var(--c-text);
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 16px 32px;
+    background-color: var(--c-text);
+    color: var(--c-bg);
+    border-radius: 40px;
+    letter-spacing: 0.1em;
+    font-size: 0.875rem;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s ease;
+  }
+
+  .cta-btn:hover {
+    background-color: var(--c-accent);
+    transform: translateY(-4px);
+  }
+</style>

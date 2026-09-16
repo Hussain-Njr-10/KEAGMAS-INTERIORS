@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import SketchBackground from '../../components/SketchBackground.astro';
+
+const projects = await getCollection('projects');
+---
+
+<Layout 
+  title="Selected Works | Luxury Interior Design Portfolio | KEAGMAS"
+  description="Explore the portfolio of KEAGMAS INTERIORS. A curated selection of our finest high-end residential and bespoke commercial interior design commissions in Mumbai and beyond."
+>
+  <Navigation />
+  
+  <main class="page-padding">
+    <div style="position: relative; overflow: hidden; margin: -120px 0 0 0; padding: 120px 0 0 0;">
+      <SketchBackground imageSrc="/keagmas1/sketches/projects_sketch.jpg" />
+      <div class="container section-header reveal-up" style="position: relative; z-index: 1;">
+      <h1 class="font-serif italic text-accent" style="font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; margin-bottom: var(--space-md);">Selected Works</h1>
+      <p style="font-size: 1.125rem; max-width: 600px; opacity: 0.8;">A curated selection of our finest bespoke residential and high-end commercial interior design commissions.</p>
+    </div>
+    </div>
+
+    <section class="container projects-grid">
+      {projects.map((project, index) => (
+        <a href={`/projects/${project.id}`} class={`project-card interactive reveal-up delay-${index % 4 + 1}`}>
+          <div class="project-img-wrapper reveal-image-wrapper">
+            <img src={project.data.heroImage} alt={project.data.title} class="reveal-image" />
+          </div>
+          <div class="project-info">
+            <h3 class="font-serif italic text-accent">{project.data.title}</h3>
+            <span class="font-sans text-uppercase">Portfolio</span>
+          </div>
+        </a>
+      ))}
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-padding {
+    padding-top: 120px;
+    padding-bottom: var(--space-2xl);
+  }
+  
+  .section-header {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--c-border);
+    margin-bottom: var(--space-lg);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 768px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .project-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .project-img-wrapper {
+    aspect-ratio: 4/3;
+    margin-bottom: var(--space-md);
+    overflow: hidden;
+  }
+
+  .project-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .project-card:hover .project-img-wrapper img {
+    transform: scale(1.05);
+  }
+
+  .project-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--c-border);
+    padding-bottom: var(--space-sm);
+    transition: border-color 0.3s ease;
+  }
+
+  .project-card:hover .project-info {
+    border-color: var(--c-accent);
+  }
+
+  .project-info h3 {
+    font-size: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .project-info span {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+  }
+</style>

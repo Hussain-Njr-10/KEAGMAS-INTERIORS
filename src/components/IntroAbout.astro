@@ -1,0 +1,95 @@
+---
+// IntroAbout.astro
+---
+<section id="studio" class="intro container">
+  <div class="structural-bg" aria-hidden="true">01</div>
+  <div class="intro-grid">
+    <div class="intro-header reveal-up delay-1">
+      <h2 class="text-uppercase font-sans">The Studio</h2>
+      <div class="line"></div>
+    </div>
+    
+    <div class="intro-content">
+      <p class="intro-text reveal-up delay-2 font-serif italic">
+        "We believe that a space should not only be seen but felt. Our approach roots itself in a deep understanding of materiality, light, and context."
+      </p>
+      
+      <div class="intro-desc reveal-up delay-3">
+        <p>Founded by Abdul Sattar Jetha, KEAGMAS INTERIORS is a premier luxury interior design studio based in Malabar Hill, Mumbai. We specialize in bespoke residential and commercial architecture, blending timeless aesthetics with uncompromising functional precision.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-xl);
+    position: relative;
+  }
+
+  .structural-bg {
+    position: absolute;
+    top: 10%;
+    left: -5%;
+    font-size: clamp(10rem, 35vw, 40rem);
+    font-family: var(--f-sans);
+    font-weight: 700;
+    line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(28, 27, 26, 0.05);
+    z-index: -1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 1024px) {
+    .intro-grid {
+      grid-template-columns: 3fr 9fr;
+      gap: var(--space-xl);
+    }
+  }
+
+  .intro-header h2 {
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-md);
+  }
+
+  .line {
+    width: 40px;
+    height: 1px;
+    background-color: var(--c-text);
+  }
+
+  .intro-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .intro-content {
+      gap: var(--space-lg);
+    }
+  }
+
+  .intro-text {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    line-height: 1.2;
+    max-width: 900px;
+  }
+
+  .intro-desc {
+    max-width: 400px;
+    margin-left: auto;
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+</style>

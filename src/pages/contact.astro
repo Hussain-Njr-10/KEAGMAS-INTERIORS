@@ -1,0 +1,189 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import SketchBackground from '../components/SketchBackground.astro';
+---
+
+<Layout title="Contact - KEAGMAS INTERIORS">
+  <Navigation />
+  
+  <main class="page-padding container">
+    <div style="position: relative; overflow: hidden; margin-top: -120px; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); padding-top: 120px; padding-left: calc(50vw - 50%); padding-right: calc(50vw - 50%); padding-bottom: var(--space-lg); border-bottom: 1px solid var(--c-border); margin-bottom: var(--space-lg);">
+      <SketchBackground imageSrc="/keagmas1/sketches/contact_sketch.jpg" />
+      <div class="contact-grid" style="position: relative; z-index: 1;">
+      <div class="contact-info reveal-up">
+        <h1 class="font-serif italic text-accent" style="font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; margin-bottom: var(--space-xl);">Let's Talk</h1>
+        
+        <div class="info-group">
+          <h3 class="text-uppercase font-sans">Enquiries</h3>
+          <p style="font-weight: 500; margin-bottom: 0.25rem;">Abdul Sattar Jetha</p>
+          <a href="mailto:keagmas@gmail.com" class="interactive">keagmas@gmail.com</a>
+          <p style="margin-top: 0.5rem;"><a href="https://wa.me/919820307991" target="_blank" class="interactive">+91 98203 07991</a> (Mobile)</p>
+          <p style="margin-top: 0.25rem;">+91 22 23624313 (Office)</p>
+          <p style="margin-top: 0.25rem;">+91 22 23625313 (Telefax)</p>
+        </div>
+        
+        <div class="info-group">
+          <h3 class="text-uppercase font-sans">Studio</h3>
+          <p>136/138, Raja Nava Bldg., Ground Floor,<br/>Walkeshwar Road, Malbar Hill,<br/>MUMBAI 400006. India</p>
+        </div>
+      </div>
+      
+      <div class="contact-form reveal-up delay-2">
+        <form id="wa-contact-form">
+          <div class="form-group">
+            <label for="name" class="text-uppercase font-sans">Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email" class="text-uppercase font-sans">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="project" class="text-uppercase font-sans">Project Details</label>
+            <textarea id="project" name="project" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn interactive text-uppercase font-sans">Send via WhatsApp</button>
+        </form>
+      </div>
+    </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('wa-contact-form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = (document.getElementById('name') as HTMLInputElement).value;
+        const email = (document.getElementById('email') as HTMLInputElement).value;
+        const project = (document.getElementById('project') as HTMLTextAreaElement).value;
+        
+        const messageText = `Greetings KEAGMAS INTERIORS,
+
+I am reaching out via your website to discuss a potential interior design project. Please find my details below:
+
+*Client Name:* ${name}
+*Email Address:* ${email}
+
+*Project Vision:*
+${project}
+
+Looking forward to connecting with your team.`;
+        
+        const whatsappUrl = `https://wa.me/919820307991?text=${encodeURIComponent(messageText)}`;
+        
+        window.open(whatsappUrl, '_blank');
+      });
+    }
+  });
+</script>
+
+<style>
+  .page-padding {
+    padding-top: 120px;
+    padding-bottom: var(--space-2xl);
+  }
+  
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 10vw;
+    }
+  }
+
+  .info-group {
+    margin-bottom: var(--space-xl);
+  }
+
+  .info-group h3 {
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-sm);
+    color: var(--c-accent);
+  }
+
+  .info-group p, .info-group a {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  .info-group a:hover {
+    color: var(--c-accent);
+  }
+
+  .contact-form {
+    background: rgba(249, 248, 246, 0.85); /* Translucent version of background color */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: var(--space-lg);
+    border-radius: 4px;
+    border: 1px solid var(--c-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+  }
+
+  .contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .form-group label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+
+  .form-group input, .form-group textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--c-border);
+    padding: var(--space-sm) 0;
+    color: var(--c-text);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-group input:focus, .form-group textarea:focus {
+    border-color: var(--c-text);
+  }
+
+  .submit-btn {
+    align-self: flex-start;
+    background: var(--c-text);
+    color: var(--c-bg);
+    border: none;
+    padding: 16px 32px;
+    border-radius: 40px;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: var(--space-md);
+  }
+
+  .submit-btn:hover {
+    background: var(--c-accent);
+    transform: translateY(-2px);
+  }
+</style>

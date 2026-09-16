@@ -1,0 +1,320 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Layout title={`${entry.data.title} - KEAGMAS INTERIORS`}>
+  <Navigation theme="dark" />
+  
+  <article class="project-case-study">
+    <div class="hero-image-wrapper reveal-image-wrapper container" style="padding-top: calc(var(--space-2xl) + 80px);">
+      <img 
+        src={entry.data.heroImage} 
+        alt={entry.data.title} 
+        class="reveal-image project-hero-img lightbox-trigger"
+        data-media-idx={entry.data.media ? entry.data.media.indexOf(entry.data.heroImage) : 0}
+        style="width: 100%; max-height: 70vh; object-fit: contain; cursor: zoom-in;"
+      />
+    </div>
+
+    <div class="container project-content">
+      <div class="project-header reveal-up">
+        <h1 class="font-serif italic text-accent">{entry.data.title}</h1>
+        
+        <div class="project-meta font-sans text-uppercase">
+          <div class="meta-item">
+            <span>Portfolio</span>
+            <p>{entry.data.category}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-body reveal-up delay-2">
+        <Content />
+      </div>
+    </div>
+
+    {entry.data.media && entry.data.media.length > 1 && (
+      <div class="container project-gallery">
+        {entry.data.media.map((mediaUrl, index) => {
+          if (mediaUrl === entry.data.heroImage) return null;
+          
+          const isVideo = mediaUrl.endsWith('.mp4');
+          return (
+            <div class={`gallery-item reveal-up delay-${(index % 3) + 1}`}>
+              {isVideo ? (
+                <video src={mediaUrl} autoplay loop muted playsinline class="gallery-media lightbox-trigger" data-media-idx={entry.data.media.indexOf(mediaUrl)} style="cursor: zoom-in;"></video>
+              ) : (
+                <img src={mediaUrl} alt={`${entry.data.title} - View ${index}`} loading="lazy" class="gallery-media lightbox-trigger" data-media-idx={entry.data.media.indexOf(mediaUrl)} style="cursor: zoom-in;" />
+              )}
+            </div>
+          );
+        })}
+      </div>
+    )}
+
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" class="lightbox">
+      <button class="lightbox-close interactive" aria-label="Close lightbox">&times;</button>
+      <button class="lightbox-prev interactive" aria-label="Previous image">&#10094;</button>
+      
+      <div class="lightbox-content">
+        <img id="lightbox-img" src="" alt="Expanded view" />
+        <video id="lightbox-video" src="" autoplay loop muted playsinline controls></video>
+      </div>
+      
+      <button class="lightbox-next interactive" aria-label="Next image">&#10095;</button>
+    </div>
+  </article>
+
+  <Footer />
+</Layout>
+
+<script define:vars={{ mediaArray: entry.data.media }}>
+  document.addEventListener("astro:page-load", () => {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox) return;
+    
+    const imgEl = document.getElementById('lightbox-img');
+    const videoEl = document.getElementById('lightbox-video');
+    const closeBtn = document.querySelector('.lightbox-close');
+    const prevBtn = document.querySelector('.lightbox-prev');
+    const nextBtn = document.querySelector('.lightbox-next');
+    
+    let currentIndex = 0;
+
+    const showMedia = (index) => {
+      if (!mediaArray || mediaArray.length === 0) return;
+      
+      if (index < 0) index = mediaArray.length - 1;
+      if (index >= mediaArray.length) index = 0;
+      currentIndex = index;
+
+      const url = mediaArray[currentIndex];
+      const isVideo = url.endsWith('.mp4');
+
+      if (isVideo) {
+        imgEl.style.display = 'none';
+        videoEl.style.display = 'block';
+        videoEl.src = url;
+      } else {
+        videoEl.style.display = 'none';
+        videoEl.pause();
+        imgEl.style.display = 'block';
+        imgEl.src = url;
+      }
+    };
+
+    const triggers = document.querySelectorAll('.lightbox-trigger');
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', (e) => {
+        const idxStr = e.currentTarget.getAttribute('data-media-idx');
+        if (idxStr) {
+          showMedia(parseInt(idxStr, 10));
+          lightbox.classList.add('is-active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('is-active');
+      document.body.style.overflow = '';
+      videoEl.pause();
+    };
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+        closeLightbox();
+      }
+    });
+
+    prevBtn.addEventListener('click', () => showMedia(currentIndex - 1));
+    nextBtn.addEventListener('click', () => showMedia(currentIndex + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('is-active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showMedia(currentIndex - 1);
+      if (e.key === 'ArrowRight') showMedia(currentIndex + 1);
+    });
+  });
+</script>
+
+<style>
+  .project-hero-img {
+    will-change: transform;
+  }
+
+  .project-content {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 1024px) {
+    .project-content {
+      grid-template-columns: 4fr 6fr;
+      gap: 10vw;
+    }
+  }
+
+  .project-header h1 {
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: var(--space-xl);
+  }
+
+  .project-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    border-top: 1px solid var(--c-border);
+    padding-top: var(--space-md);
+  }
+
+  .meta-item span {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .meta-item p {
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .project-body {
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+
+  :global(.project-body p) {
+    margin-bottom: var(--space-md);
+  }
+
+  .project-gallery {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-2xl);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .project-gallery {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg);
+    }
+    
+    /* Make every 3rd item span full width for masonry-like feel */
+    .gallery-item:nth-child(3n) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .gallery-item {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .gallery-media {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-media:hover {
+    transform: scale(1.02);
+  }
+
+  /* Lightbox Styles */
+  .lightbox {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .lightbox.is-active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lightbox-content {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lightbox-content img, .lightbox-content video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: none;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    z-index: 10000;
+  }
+
+  .lightbox-prev, .lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    padding: 20px;
+    z-index: 10000;
+  }
+
+  .lightbox-prev { left: 10px; }
+  .lightbox-next { right: 10px; }
+  
+  @media (max-width: 768px) {
+    .lightbox-prev, .lightbox-next {
+      font-size: 2rem;
+      padding: 10px;
+    }
+  }
+</style>
