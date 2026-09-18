@@ -1,0 +1,246 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+export async function getStaticPaths() {
+  // We logically divide the images into 4 thematic stories
+  // You can easily move images around by changing these arrays
+  
+  const stories = [
+    {
+      slug: 'global-reach',
+      title: 'GLOBAL DESIGN COMMUNITY',
+      subtitle: 'Building a presence on the world stage.',
+      heroImage: 'WhatsApp Image 2026-09-18 at 4.08.49 PM.jpeg',
+      description: 'Design does not exist in a vacuum. Engaging with the global design community allows us to exchange ideas, discover new materials, and push the boundaries of what is possible in interior architecture.',
+      images: [
+        'WhatsApp Image 2026-09-18 at 4.08.20 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.22 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.23 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.25 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.26 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.28 PM.jpeg'
+      ]
+    },
+    {
+      slug: 'international-exposure',
+      title: 'AUSTRALIA',
+      subtitle: 'On the Move - Architectural Explorations',
+      heroImage: 'WhatsApp Image 2026-09-18 at 4.08.37 PM.jpeg',
+      description: 'A deep dive into the architectural landscape of Australia. An inspiring journey spanning across Melbourne, Sydney, and Adelaide. From the Art Gallery of South Australia to contemporary developments, these travels shape our understanding of space, light, and materiality.',
+      images: [
+        'WhatsApp Image 2026-09-18 at 4.08.29 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.31 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.32 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.35 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.37 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.39 PM (1).jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.39 PM.jpeg'
+      ]
+    },
+    {
+      slug: 'industry-expertise',
+      title: 'INDUSTRY EXPERTISE',
+      subtitle: 'Mentorship & Professional Jury',
+      heroImage: 'WhatsApp Image 2026-09-18 at 4.08.47 PM.jpeg',
+      description: 'True mastery involves giving back. Serving as a distinguished judge at NATCON - Design Kumbh and mentoring upcoming designers ensures that the industry standard continues to evolve with integrity and vision.',
+      images: [
+        'WhatsApp Image 2026-09-18 at 4.08.42 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.44 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.45 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.47 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.49 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.51 PM.jpeg'
+      ]
+    },
+    {
+      slug: 'networking',
+      title: 'INDUSTRY NETWORKING',
+      subtitle: 'Building Meaningful Connections',
+      heroImage: 'WhatsApp Image 2026-09-18 at 4.08.44 PM.jpeg',
+      description: 'The foundation of great design is collaboration. Engaging in high-level industry events like NATCON fosters relationships that bridge the gap between creative vision and technical execution.',
+      images: [
+        'WhatsApp Image 2026-09-18 at 4.08.53 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.55 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.57 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.08.59 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.09.02 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.09.03 PM.jpeg',
+        'WhatsApp Image 2026-09-18 at 4.09.04 PM (1).jpeg',
+        'WhatsApp Image 2026-09-18 at 4.09.04 PM.jpeg'
+      ]
+    }
+  ];
+
+  return stories.map((story) => {
+    return {
+      params: { story: story.slug },
+      props: { story },
+    };
+  });
+}
+
+const { story } = Astro.props;
+---
+
+<Layout title={`${story.title} | Keagmas Interiors`}>
+  <main class="story-page">
+    <div class="container pt-header pb-lg">
+      <div class="story-header reveal-up">
+        <a href="/" class="back-link font-sans text-uppercase">&larr; Back to Experience</a>
+        <h1 class="font-serif title-text">{story.title}</h1>
+        <p class="subtitle font-sans text-uppercase">{story.subtitle}</p>
+        <p class="narrative-text font-sans text-muted">{story.description}</p>
+      </div>
+      
+      <div class="masonry-grid">
+        {/* If the user still wants to see the hero image in the grid, we can optionally prepend it here, but they said they don't like it up top. I'll just include the normal images. */}
+        {story.images.map((img, index) => (
+          <div class={`masonry-item reveal-up delay-${(index % 4) + 1}`}>
+            <img 
+              src={`/keagmas1/PERSONAL/${img}`} 
+              alt={`${story.title} ${index + 1}`} 
+              loading="lazy" 
+              class="hover-scale"
+            />
+          </div>
+        ))}
+      </div>
+      
+      <!-- CTA to see all images -->
+      <div class="story-footer reveal-up delay-1">
+        <div class="line-horizontal"></div>
+        <a href="/founder-gallery" class="cinematic-btn font-serif">
+          <span>Explore The Complete Journey</span>
+          <span class="arrow">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .pt-header {
+    padding-top: calc(var(--header-height, 80px) + 0.5rem);
+  }
+  
+  .pb-lg {
+    padding-bottom: var(--space-lg);
+  }
+
+  .story-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: var(--c-accent);
+    margin-bottom: 0.75rem;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .back-link:hover {
+    opacity: 0.7;
+  }
+
+  .title-text {
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    line-height: 1.1;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--c-accent);
+    margin-bottom: 1rem;
+  }
+
+  .narrative-text {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    line-height: 1.6;
+    color: var(--c-text-muted);
+    max-width: 900px;
+  }
+
+  /* Masonry Layout */
+  .masonry-grid {
+    column-count: 1;
+    column-gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .masonry-grid {
+      column-count: 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry-grid {
+      column-count: 3;
+    }
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    border-radius: 0;
+    overflow: hidden;
+    background: #e0e0e0;
+  }
+
+  .masonry-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .masonry-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Cinematic Footer */
+  .story-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .line-horizontal {
+    width: 100px;
+    height: 1px;
+    background-color: var(--c-border);
+  }
+
+  .cinematic-btn {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    text-decoration: none;
+    color: var(--c-text);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: color 0.4s ease;
+  }
+
+  .cinematic-btn .arrow {
+    color: var(--c-accent);
+    transition: transform 0.4s ease;
+  }
+
+  .cinematic-btn:hover {
+    color: var(--c-accent);
+  }
+
+  .cinematic-btn:hover .arrow {
+    transform: translateX(10px);
+  }
+</style>

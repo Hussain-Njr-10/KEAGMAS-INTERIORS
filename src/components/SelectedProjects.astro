@@ -6,7 +6,7 @@ const selectedProjects = allProjects.slice(0, 4); // Take first 4
 <section id="projects" class="projects">
   <div class="container">
     <div class="section-header reveal-up">
-      <h2 class="text-uppercase font-sans">Selected Portfolios</h2>
+      <h2 class="text-uppercase font-serif">Selected Portfolios</h2>
       <a href="/projects" class="view-all interactive">
         View All Portfolios
       </a>
@@ -81,7 +81,7 @@ const selectedProjects = allProjects.slice(0, 4); // Take first 4
   .projects-list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2xl);
+    gap: var(--space-xl);
   }
 
   .project-item {
@@ -93,12 +93,12 @@ const selectedProjects = allProjects.slice(0, 4); // Take first 4
 
   @media (min-width: 1024px) {
     .project-item {
-      grid-template-columns: 4fr 8fr;
+      grid-template-columns: 6fr 6fr;
       gap: var(--space-xl);
     }
     
     .project-item.reverse {
-      grid-template-columns: 8fr 4fr;
+      grid-template-columns: 6fr 6fr;
     }
     
     .project-item.reverse .project-info {
@@ -141,7 +141,7 @@ const selectedProjects = allProjects.slice(0, 4); // Take first 4
 
   @media (min-width: 1024px) {
     .project-image-wrapper {
-      aspect-ratio: 16/10;
+      aspect-ratio: 3/2;
     }
   }
 </style>

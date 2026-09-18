@@ -16,7 +16,7 @@ import SketchBackground from '../components/SketchBackground.astro';
         <h1 class="font-serif italic text-accent" style="font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; margin-bottom: var(--space-xl);">Let's Talk</h1>
         
         <div class="info-group">
-          <h3 class="text-uppercase font-sans">Enquiries</h3>
+          <h3 class="text-uppercase font-serif">Enquiries</h3>
           <p style="font-weight: 500; margin-bottom: 0.25rem;">Abdul Sattar Jetha</p>
           <a href="mailto:keagmas@gmail.com" class="interactive">keagmas@gmail.com</a>
           <p style="margin-top: 0.5rem;"><a href="https://wa.me/919820307991" target="_blank" class="interactive">+91 98203 07991</a> (Mobile)</p>
@@ -25,7 +25,7 @@ import SketchBackground from '../components/SketchBackground.astro';
         </div>
         
         <div class="info-group">
-          <h3 class="text-uppercase font-sans">Studio</h3>
+          <h3 class="text-uppercase font-serif">Studio</h3>
           <p>136/138, Raja Nava Bldg., Ground Floor,<br/>Walkeshwar Road, Malbar Hill,<br/>MUMBAI 400006. India</p>
         </div>
       </div>
@@ -55,7 +55,7 @@ import SketchBackground from '../components/SketchBackground.astro';
 </Layout>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const form = document.getElementById('wa-contact-form');
     if (form) {
       form.addEventListener('submit', (e) => {
@@ -129,7 +129,7 @@ Looking forward to connecting with your team.`;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: var(--space-lg);
-    border-radius: 4px;
+    border-radius: 0;
     border: 1px solid var(--c-border);
     box-shadow: 0 10px 30px rgba(0,0,0,0.02);
   }
@@ -174,7 +174,7 @@ Looking forward to connecting with your team.`;
     color: var(--c-bg);
     border: none;
     padding: 16px 32px;
-    border-radius: 40px;
+    border-radius: 0;
     font-size: 0.875rem;
     letter-spacing: 0.1em;
     cursor: pointer;

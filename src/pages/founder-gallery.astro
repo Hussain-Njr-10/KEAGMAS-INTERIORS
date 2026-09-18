@@ -1,0 +1,124 @@
+---
+import Layout from '../layouts/Layout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+// Read all images from the PERSONAL directory
+const personalImagesDir = path.join(process.cwd(), 'public/keagmas1/PERSONAL');
+let images = [];
+
+try {
+  const files = fs.readdirSync(personalImagesDir);
+  images = files.filter(f => f.endsWith('.jpeg') || f.endsWith('.jpg') || f.endsWith('.png'));
+} catch (e) {
+  console.error('Error reading PERSONAL images directory:', e);
+}
+---
+
+<Layout title="Founder Experience Gallery | Keagmas Interiors">
+  <main class="gallery-page">
+    <div class="container pt-header pb-xl">
+      <div class="gallery-header reveal-up delay-1">
+        <a href="/" class="back-link font-sans text-uppercase">&larr; Back to Home</a>
+        <h1 class="font-serif">Founder's Journey</h1>
+        <p class="font-sans text-muted">A comprehensive look into Abdul Sattar Jetha's global design exposure, industry events, and professional collaborations.</p>
+      </div>
+
+      <div class="masonry-grid mt-xl">
+        {images.map((img, index) => (
+          <div class={`masonry-item reveal-up delay-${(index % 4) + 1}`}>
+            <img 
+              src={`/keagmas1/PERSONAL/${img}`} 
+              alt={`Founder Experience ${index + 1}`} 
+              loading="lazy" 
+              class="hover-scale"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .pt-header {
+    padding-top: calc(var(--header-height, 100px) + var(--space-xl));
+  }
+  
+  .pb-xl {
+    padding-bottom: var(--space-xl);
+  }
+
+  .gallery-header {
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .back-link {
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: var(--c-accent);
+    margin-bottom: var(--space-md);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .back-link:hover {
+    opacity: 0.7;
+  }
+
+  .gallery-header h1 {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    font-weight: 400;
+  }
+
+  .text-muted {
+    color: var(--c-text-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .mt-xl {
+    margin-top: var(--space-xl);
+  }
+
+  /* Masonry Layout */
+  .masonry-grid {
+    column-count: 1;
+    column-gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .masonry-grid {
+      column-count: 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry-grid {
+      column-count: 3;
+    }
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+    border-radius: 0;
+    overflow: hidden;
+    background: #e0e0e0;
+  }
+
+  .masonry-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .masonry-item:hover img {
+    transform: scale(1.05);
+  }
+</style>

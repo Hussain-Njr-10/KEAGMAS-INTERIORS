@@ -1,0 +1,374 @@
+---
+// FounderExperience.astro
+---
+<section id="founder-experience" class="founder-exp container">
+  <!-- Top section -->
+  <div class="exp-top">
+    <div class="exp-top-left reveal-up delay-1">
+      <div class="exp-label">
+        <span class="text-uppercase font-sans">FOUNDER / EXPERIENCE</span>
+        <div class="line-horizontal"></div>
+      </div>
+      <h2 class="exp-title font-serif">A JOURNEY<br/>BEYOND INTERIORS</h2>
+      <h3 class="exp-subtitle font-serif text-accent">Experience That Shapes Perspective</h3>
+    </div>
+    <div class="exp-top-right reveal-up delay-2">
+      <p class="exp-body font-sans">
+        Design is shaped by experience. From international design exhibitions
+        and industry events to professional collaborations across India and Australia,
+        Abdul Sattar Jetha's journey has been shaped by years of exposure to the
+        global design and interiors community.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bento Gallery Section -->
+  <div class="bento-grid">
+    <!-- Item 1 (Span 2x2) -->
+    <a href="/founder-experience/global-reach" class="bento-card col-span-2 row-span-2 reveal-up delay-1">
+      <img src="/keagmas1/PERSONAL/WhatsApp Image 2026-09-18 at 4.08.49 PM.jpeg" alt="Global Design Community" loading="lazy" />
+      <div class="bento-overlay">
+        <span class="bento-pill">Global Reach</span>
+        <div>
+          <h3>GLOBAL DESIGN COMMUNITY</h3>
+          <p>With International Design Professionals</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Item 2 (Span 1x2 Portrait) -->
+    <a href="/founder-experience/international-exposure" class="bento-card col-span-1 row-span-2 reveal-up delay-2">
+      <img src="/keagmas1/PERSONAL/WhatsApp Image 2026-09-18 at 4.08.37 PM.jpeg" alt="International Exposure" loading="lazy" />
+      <div class="bento-overlay">
+        <span class="bento-pill">Exposure</span>
+        <div>
+          <h3>AUSTRALIA</h3>
+          <p>On the Move</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Item 3 (Span 1x2 Dark Text Card) -->
+    <a href="/founder-experience/global-reach" class="bento-card text-card dark-bg col-span-1 row-span-2 reveal-up delay-3">
+      <div class="text-content">
+        <h3 class="font-serif">A Broader<br/>Perspective</h3>
+        <p class="font-sans">Continuous learning and global exposure shape every design decision we make.</p>
+      </div>
+      <div class="card-footer">
+        <span class="btn-text">Read Story &rarr;</span>
+      </div>
+    </a>
+
+    <!-- Item 4 (Span 1x1 Small Dark Card) -->
+    <a href="/founder-experience/industry-expertise" class="bento-card text-card dark-bg-alt col-span-1 row-span-1 reveal-up delay-1">
+      <div class="stat-content">
+        <span class="stat-number font-serif">20+</span>
+        <span class="stat-label">Years of<br/>Excellence</span>
+      </div>
+    </a>
+
+    <!-- Item 5 (Span 1x1 Small Image) -->
+    <a href="/founder-experience/networking" class="bento-card col-span-1 row-span-1 reveal-up delay-2">
+      <img src="/keagmas1/PERSONAL/WhatsApp Image 2026-09-18 at 4.08.25 PM.jpeg" alt="Professional Jury" loading="lazy" />
+    </a>
+
+    <!-- Item 6 (Span 2x2 Large Portrait) -->
+    <a href="/founder-experience/industry-expertise" class="bento-card col-span-2 row-span-2 reveal-up delay-3">
+      <img src="/keagmas1/PERSONAL/WhatsApp Image 2026-09-18 at 4.08.47 PM.jpeg" alt="Design Industry Judge" loading="lazy" />
+      <div class="bento-overlay">
+        <span class="bento-pill">Professional Jury</span>
+        <div>
+          <h3>DISTINGUISHED JUDGE</h3>
+          <p>NATCON - Design Kumbh Events</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Item 7 (Span 2x1 Landscape) -->
+    <a href="/founder-experience/networking" class="bento-card col-span-2 row-span-1 reveal-up delay-1">
+      <img src="/keagmas1/PERSONAL/WhatsApp Image 2026-09-18 at 4.08.44 PM.jpeg" alt="Industry Networking" loading="lazy" />
+      <div class="bento-overlay">
+        <div>
+          <h3>INDUSTRY NETWORKING</h3>
+          <p>Building meaningful connections</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- Item 8 (Span 1x1 Small Dark Card) -->
+    <a href="/founder-gallery" class="bento-card text-card dark-bg-alt col-span-1 row-span-1 reveal-up delay-2">
+      <div class="stat-content centered">
+        <span class="btn-text">Explore All Photos</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<style>
+  .founder-exp {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .text-accent {
+    color: var(--c-accent);
+  }
+
+  /* Top Section */
+  .exp-top {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 1024px) {
+    .exp-top {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    
+    .exp-top-left {
+      flex: 1;
+      max-width: 60%;
+    }
+    
+    .exp-top-right {
+      flex: 1;
+      max-width: 35%;
+    }
+  }
+
+  .exp-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--c-accent);
+  }
+
+  .line-horizontal {
+    width: 60px;
+    height: 1px;
+    background-color: var(--c-accent);
+    opacity: 0.5;
+  }
+
+  .exp-title {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+
+  .exp-subtitle {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 400;
+  }
+
+  .exp-body {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--c-text-muted);
+  }
+
+  /* Bento Grid Layout */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 250px;
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 250px;
+      gap: 1.5rem;
+    }
+
+    .col-span-2 { grid-column: span 2; }
+    .col-span-1 { grid-column: span 1; }
+    .row-span-2 { grid-row: span 2; }
+    .row-span-1 { grid-row: span 1; }
+  }
+
+  /* Bento Cards */
+  .bento-card {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    background: #e0e0e0;
+    isolation: isolate;
+    cursor: pointer;
+  }
+
+  /* Ensure cards on mobile look good */
+  @media (max-width: 767px) {
+    .bento-card {
+      min-height: 300px;
+    }
+    .row-span-1 { min-height: 200px; }
+  }
+
+  .bento-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .bento-card:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Overlays & Labels */
+  .bento-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #ffffff;
+    transition: background 0.4s ease;
+  }
+
+  .bento-card:hover .bento-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+  }
+
+  .bento-pill {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.4rem 0.8rem;
+    border-radius: 2rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .bento-overlay h3 {
+    font-family: var(--f-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .bento-overlay p {
+    font-family: var(--f-sans);
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* Text Cards */
+  .text-card {
+    padding: 2rem;
+    justify-content: space-between;
+    background: var(--c-bg);
+    border: 1px solid var(--c-border);
+  }
+
+  .text-card.dark-bg {
+    background: #111111;
+    color: #ffffff;
+    border: none;
+  }
+
+  .text-card.dark-bg-alt {
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    justify-content: center;
+  }
+
+  .text-content h3 {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .text-content p {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+
+  .btn-text {
+    font-family: var(--f-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-block;
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .btn-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+  }
+
+  .bento-card:hover .btn-text::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stat-content.centered {
+    align-items: center;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+    color: var(--c-accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--f-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.7);
+  }
+</style>

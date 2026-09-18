@@ -3,7 +3,7 @@ title: "Bathrooms"
 location: ""
 year: 2024
 category: "Bathrooms"
-heroImage: "/keagmas1/Bathrooms/Project_Green_Stone_Bathroom/IMG-20260910-WA0170.jpg"
+heroImage: "/keagmas1/Others/Project_Miscellaneous/Bathroom_Blue_Marble/IMG-20260910-WA0159.jpg"
 media: ["/keagmas1/Bathrooms/Project_Green_Stone_Bathroom/IMG-20260910-WA0170.jpg","/keagmas1/Bathrooms/Project_Green_Stone_Bathroom/IMG-20260910-WA0175.jpg","/keagmas1/Bathrooms/Project_Green_Stone_Bathroom/IMG-20260910-WA0199.jpg"]
 ---
 

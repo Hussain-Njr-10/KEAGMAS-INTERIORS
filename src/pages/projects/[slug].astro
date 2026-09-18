@@ -56,7 +56,7 @@ const { Content } = await render(entry);
           return (
             <div class={`gallery-item reveal-up delay-${(index % 3) + 1}`}>
               {isVideo ? (
-                <video src={mediaUrl} autoplay loop muted playsinline class="gallery-media lightbox-trigger" data-media-idx={entry.data.media.indexOf(mediaUrl)} style="cursor: zoom-in;"></video>
+                <video src={mediaUrl} loop muted playsinline preload="metadata" controls class="gallery-media lightbox-trigger" data-media-idx={entry.data.media.indexOf(mediaUrl)} style="cursor: zoom-in;"></video>
               ) : (
                 <img src={mediaUrl} alt={`${entry.data.title} - View ${index}`} loading="lazy" class="gallery-media lightbox-trigger" data-media-idx={entry.data.media.indexOf(mediaUrl)} style="cursor: zoom-in;" />
               )}

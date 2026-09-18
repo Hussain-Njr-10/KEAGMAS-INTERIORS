@@ -3,7 +3,7 @@ title: "Kitchens"
 location: ""
 year: 2024
 category: "Kitchens"
-heroImage: "/keagmas1/Kitchens/Project_Brown_Kitchen/IMG-20260910-WA0195.jpg"
+heroImage: "/keagmas1/Kitchens/Project_Kitchen_Yellow/IMG-20260910-WA0167.jpg"
 media: ["/keagmas1/Kitchens/Project_Brown_Kitchen/IMG-20260910-WA0195.jpg","/keagmas1/Kitchens/Project_Grey_White_Kitchen_Render/IMG-20260910-WA0169.jpg","/keagmas1/Kitchens/Project_Grey_White_Kitchen_Render/IMG-20260910-WA0188.jpg","/keagmas1/Kitchens/Project_Kitchen_Yellow/IMG-20260910-WA0167.jpg"]
 ---
 
